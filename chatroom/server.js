@@ -12,12 +12,12 @@ var cache = {};
 var chatServer = require('./lib/chat_server');
 
 
-
 function send404(resp) {
     resp.writeHead(404, {'Content-Type': 'text/plain'});
     resp.write('Error 404: resource not found');
     resp.end();
 }
+
 
 function sendFile(resp, filePath, fileContents) {
     resp.writeHead(
@@ -26,6 +26,7 @@ function sendFile(resp, filePath, fileContents) {
     );
     resp.end(fileContents);
 }
+
 
 function serveStatic(resp, cache, absPath) {
     if (cache[absPath]) {
@@ -48,6 +49,7 @@ function serveStatic(resp, cache, absPath) {
     }
 }
 
+
 var server = http.createServer(function (req, resp) {
     var filePath = false;
 
@@ -61,8 +63,10 @@ var server = http.createServer(function (req, resp) {
     serveStatic(resp, cache, absPath);
 });
 
+
 server.listen(3000, function () {
     console.log("Server listening on port 3000");
 });
+
 
 chatServer.listen(server);
